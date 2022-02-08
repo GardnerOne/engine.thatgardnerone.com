@@ -32,7 +32,7 @@ class ManageProjectsTest extends TestCase
         $project = Project::factory()->create();
 
         // Make a request to a show endpoint
-        $this->get('/api/projects/' . $project->id)
+        $this->get($project->path())
             ->assertSee($project->title)
             ->assertSee($project->description);
     }
@@ -41,6 +41,7 @@ class ManageProjectsTest extends TestCase
     public function a_project_requires_a_title()
     {
         $attributes = Project::factory(['title' => ''])->raw();
+
         $this->post('/api/projects', $attributes)->assertSessionHasErrors(['title']);
     }
 
@@ -48,6 +49,7 @@ class ManageProjectsTest extends TestCase
     public function a_project_requires_a_description()
     {
         $attributes = Project::factory(['description' => ''])->raw();
+
         $this->post('/api/projects', $attributes)->assertSessionHasErrors(['description']);
     }
 }

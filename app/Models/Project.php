@@ -12,5 +12,11 @@ class Project extends Model
     protected $fillable = [
         'title',
         'description',
+        'owner_id'
     ];
+
+    public function path(): string
+    {
+        return "/api/projects/$this->id";
+    }
 }
