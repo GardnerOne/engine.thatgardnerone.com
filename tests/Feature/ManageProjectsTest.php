@@ -20,10 +20,10 @@ class ManageProjectsTest extends TestCase
             'description' => $this->faker->paragraph,
         ];
 
-        // Hit the /projects endpoint with the required attributes
-        $this->post('/api/projects', $attributes);
+        $response = $this->post('/api/projects', $attributes);
 
-        // Assert the db has been updated with the new record
         $this->assertDatabaseHas('projects', $attributes);
+        $this->get('/api/projects')->assertSee($attributes);
+        $response->assertSee($attributes);
     }
 }
